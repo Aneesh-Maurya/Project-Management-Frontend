@@ -1,0 +1,133 @@
+<div class=" p-3 p-md-4 project-details-container">
+
+  <!-- Project Header -->
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center 
+              mb-4 p-3 rounded-3 text-white project-header">
+    <div class="mb-2 mb-md-0">
+      <h2 class="fw-bold mb-1">{{ project.title }}</h2>
+    </div>
+   <button class="btn btn-light btn-sm w-30 w-md-auto" (click)="openAddTask()">+ Add Task</button>
+
+  </div>
+
+  <!-- Tasks Table -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      
+      <!-- Search and Filter -->
+      <div class="row g-2 mb-3 align-items-center">
+        <div class="col-12 col-md-6">
+          <h5 class="mb-2 mb-md-0 ms-2">Tasks</h5>
+        </div>
+        <div class="col-12 col-md-6">
+          <input type="text" class="form-control form-control-sm search-box"
+                 placeholder="Search tasks..."
+                 [(ngModel)]="searchTerm"
+                 (ngModelChange)="filterTasks()">
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-header-navy text-white">
+            <tr>
+              <th>Task</th>
+              <th>Description</th>
+              <th>Due Date</th>
+              <th>Status</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let task of filteredTasks; let i = index">
+              <td>{{ task.title }}</td>
+              <td>{{ task.description }}</td>
+              <td>{{ task.dueDate | date:'shortDate' }}</td>
+              <td>
+                <span class="badge"
+                      [ngClass]="{
+                        'bg-success': task.status === 'done',
+                        'bg-primary': task.status === 'in-progress',
+                        'bg-warning': task.status === 'todo'
+                      }">{{ task.status | titlecase }}</span>
+              </td>
+              <td class="text-center">
+                <div class="d-grid gap-2 d-sm-flex justify-content-center">
+                  <button class="btn btn-sm btn-outline-primary" (click)="openEditTask(i)">Edit</button>
+                  <button class="btn btn-sm btn-outline-danger" (click)="deleteTask(i)">Delete</button>
+                </div>
+              </td>
+            </tr>
+            <tr *ngIf="tasks.length === 0">
+              <td colspan="5" class="text-center text-muted">No tasks found</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+     
+    </div>
+  </div>
+
+  <!-- Task Modal -->
+  <div class="modal fade" id="taskModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header modal-header-navy">
+        <h5 class="modal-title">{{ editingTaskIndex !== null ? 'Edit Task' : 'Add Task' }}</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="taskForm" class="row g-3">
+
+          <!-- Title -->
+          <div class="col-12">
+            <label class="form-label">Title <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="title">
+            <div class="text-danger mt-1" *ngIf="taskForm.get('title')?.touched && taskForm.get('title')?.hasError('required')">
+              Title is required
+            </div>
+          </div>
+
+          <!-- Assignee -->
+          <div class="col-12 col-md-6">
+            <label class="form-label">Description</label>
+            <textarea  class="form-control" formControlName="description"></textarea>
+          </div>
+
+          <!-- Due Date -->
+          <div class="col-12 col-md-6">
+            <label class="form-label">Due Date <span class="text-danger">*</span></label>
+            <input type="date" class="form-control" formControlName="dueDate">
+            <div class="text-danger mt-1" *ngIf="taskForm.get('dueDate')?.touched && taskForm.get('dueDate')?.hasError('required')">
+              Due date is required
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="col-12">
+            <label class="form-label">Status <span class="text-danger">*</span></label>
+            <select class="form-select" formControlName="status">
+              <option value="todo">Todo</option>
+               <option value="in-progress">In-Progress</option>
+              <option value="done">Done</option>
+             
+            </select>
+            <div class="text-danger mt-1" *ngIf="taskForm.get('status')?.touched && taskForm.get('status')?.hasError('required')">
+              Status is required
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer d-grid gap-2 d-sm-flex justify-content-sm-end">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="saveTask()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</div>

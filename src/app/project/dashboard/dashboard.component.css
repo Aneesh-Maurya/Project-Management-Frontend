@@ -1,0 +1,71 @@
+
+
+
+
+.dashboard-container {
+  background-color: #dddd; /* page background white */
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* Header */
+.dashboard-header {
+ background: #0f2027;  /* fallback */
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  border-radius: 12px;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Card Styling */
+.project-card {
+  /* border-radius: 12px; */
+ background: #0f2027;  /* fallback */
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  color: white;
+  transition: transform 0.2s ease-in-out;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-title {
+  font-size: 1.1rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+}
+
+/* Badge Styling */
+.badge {
+  padding: 0.5em 0.7em;
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+}
+
+/* Text truncation */
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.modal-header-navy {
+ background: #0f2027;  /* fallback */
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  color: #ffffff;
+}
+
+.table-header-navy{
+  background: #0f2027;  /* fallback */
+  background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+  color: #ffffff;
+}
